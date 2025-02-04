@@ -1,0 +1,11 @@
+--- a/tf2_py/src/tf2_py.cpp	2025-02-04 00:49:12.373529947 -0800
++++ b/tf2_py/src/tf2_py.cpp	2025-02-04 00:49:19.813547088 -0800
+@@ -86,7 +86,7 @@
+     return NULL;
+   }
+ 
+-  pinst = PyEval_CallObject(pclass, pargs);
++  pinst = PyObject_CallObject(pclass, pargs);
+   Py_DECREF(pclass);
+   Py_DECREF(pargs);
+   if(pinst == NULL)

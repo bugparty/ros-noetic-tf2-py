@@ -4,9 +4,9 @@ pkgdesc="ROS - The tf2_py package."
 url='https://wiki.ros.org/tf2_py'
 
 pkgname='ros-noetic-tf2-py'
-pkgver='0.7.6'
+pkgver='0.7.7'
 arch=('any')
-pkgrel=1
+pkgrel=2
 license=('BSD')
 
 ros_makedepends=(
@@ -31,8 +31,15 @@ depends=(
 )
 
 _dir="geometry2-${pkgver}/tf2_py"
-source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/ros/geometry2/archive/${pkgver}.tar.gz")
-sha256sums=('cd6014745564bc9fc926999820a22742058a3a0bafd4b71795324026d4491db3')
+source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/ros/geometry2/archive/${pkgver}.tar.gz"
+"fix_pyeval_callobject.patch")
+sha256sums=('edda09208a93761fd728e80d5acc487140fa6137f85fad124f82827128997f3c'
+'b0e1673ee3a26bfabcb72c042a08b3a982104810dbf48fce12792c6ce11691a8')
+
+prepare() {
+	cd "$srcdir/geometry2-$pkgver"
+	patch -p1 < "$srcdir/fix_pyeval_callobject.patch"
+}
 
 build() {
 	# Use ROS environment variables.
